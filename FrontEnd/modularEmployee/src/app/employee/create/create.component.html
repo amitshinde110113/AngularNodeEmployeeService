@@ -1,0 +1,203 @@
+
+  <main class="my-form">
+      <div class="cotainer">
+          <div class="row justify-content-center">
+              <div class="col-md-8">
+                      <div class="card">
+                          <div class="card-header dark">Register Employee</div>
+                          <div class="card-body">
+                              <form name="my-form" [formGroup]="user">
+  
+                                   <div class="form-group row">
+                                              <label for="full_name" class="col-md-4 col-form-label text-md-right"></label>
+                                              <div class="col-md-3">
+                                              </div>
+                                              <div class="col-md-3 text-md-right">
+                                                  <ngx-avatar [src]="url" size='150' [round]="true"></ngx-avatar>
+                                                      <!-- <img  [src]="url" height="100px" width="100px" > -->
+                                              </div>
+                                  </div>
+                                  <div class="form-group row">
+                                          <label for="full_name" class="col-md-4 col-form-label text-md-right">Avatar</label>
+                                          <div class="col-md-6">
+                                              <input type="File" id="full_name" (change)="onFleLoad($event)" class="form-control" fromControlName="profiePic" name="full-name" accept="image/*">
+                                          </div>
+                              </div>
+  
+                                  <div class="form-group row">
+                                      <label for="full_name" class="col-md-4 col-form-label text-md-right">First Name</label>
+                                      <div class="col-md-6">
+                                          <input type="text" id="full_name" class="form-control" name="full-name" formControlName="firstName"
+                                          [class.is-invalid]="user.get('firstName').invalid && user.get('firstName').touched" >
+                                          <small style="color:red" *ngIf="user.get('firstName').invalid && user.get('firstName').touched" >First Name is Required</small>
+                                    
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <label for="full_name" class="col-md-4 col-form-label text-md-right">Last Name</label>
+                                      <div class="col-md-6">
+                                          <input type="text" id="full_name" class="form-control" name="full-name" formControlName="lastName"
+                                          [class.is-invalid]="user.get('lastName').invalid && user.get('lastName').touched" >
+                                          <small style="color:red" *ngIf="user.get('lastName').invalid && user.get('lastName').touched" >Last Name is Required</small>
+                                        
+                                      </div>
+                                  </div>
+  
+                                  <div class="form-group row">
+                                      <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                      <div class="col-md-6">
+                                          <input type="text" formControlName="email" id="email_address" class="form-control" name="email-address"
+                                          [class.is-invalid]="user.get('email').invalid && user.get('email').touched" >  
+                                          <small style="color:red" *ngIf="user.get('email').invalid && user.get('email').touched" >Email is Required</small>
+                    
+                                      </div>
+                                  </div>
+  
+                                  <div class="form-group row">
+                                      <label class="col-md-4 col-form-label text-md-right">Phone Number</label>
+                                      <div class="col-md-6">
+                                          <input type="text" mask="000-000-0000" formControlName="contactNumber"  class="form-control"
+                                          [class.is-invalid]="user.get('contactNumber').invalid && user.get('contactNumber').touched">
+                                          <small style="color:red" *ngIf="user.get('contactNumber').invalid && user.get('contactNumber').touched" >Number is Required</small>
+                                        
+                                        </div>
+                                  </div>
+  
+                                  <div class="form-group row">
+                                          <label  class="col-md-4 col-form-label text-md-right">Birth Date</label>
+                                          <div class="col-md-6">
+                                              <input  formControlName="bdate" placeholder="Select Birth Date" #datepickerYMD="bsDatepicker" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" (change)="getDate()" type="text" bsDatepicker class="form-control" >
+                                          </div>
+                                      </div>
+  
+                                  <div class="form-group row">
+                                      <label for="user_name" class="col-md-4 col-form-label text-md-right">Salary</label>
+                                      <div class="col-md-6">
+                                          <input type="text" formControlName="salary"  currencyMask  [options]="{ prefix: '&#8377; ', thousands: ',' }" id="user_name" class="form-control" name="username"                                        
+                                          [class.is-invalid]="user.get('salary').invalid && user.get('salary').touched" > 
+                                          <small style="color:red" *ngIf="user.get('salary').invalid && user.get('salary').touched" >Salary is Required</small>
+  
+                                      </div>
+                                  </div>
+  
+                                  
+                                  <div class="form-group row">
+                                          <label for="present_address" class="col-md-4 col-form-label text-md-right">Qualification</label>
+                                          <div class="col-md-6">
+                                              <select type="select" formControlName="education" id="present_address" class="form-control"
+                                              [class.is-invalid]="user.get('education').invalid && user.get('education').touched" >
+                                              <option value="" selected disabled hidden>Select Educaton</option>
+                                            <option  *ngFor="let education of educations" >{{education}}</option>
+                                          
+                                          </select>
+                                          </div>
+                                  </div>
+  
+                                  <div class="form-group row">
+                                      <label for="present_address" class="col-md-4 col-form-label text-md-right">State</label>
+                                      <div class="col-md-6">
+                                          <select type="select" formControlName="state" (change)="onChangeState($event.target.value)" id="present_address" class="form-control"
+                                          [class.is-invalid]="user.get('state').invalid && user.get('state').touched"  >
+                                          <option value="" selected disabled hidden>Select State</option>
+                                        <option    *ngFor="let state of states" >{{state.name}}</option>
+                                        </select>
+  
+                                      </div>
+                                  </div>
+  
+                                  <div class="form-group row">
+                                      <label for="permanent_address" class="col-md-4 col-form-label text-md-right">City</label>
+                                      <div class="col-md-6">
+                                          <select type="select" formControlName="city"  class="form-control" 
+                                          [class.is-invalid]="user.get('city').invalid && user.get('city').touched">
+                                          <option value="" selected disabled hidden>Select City</option>
+                                          <option  *ngFor="let city of cities" >{{city}}</option>
+                                          </select>
+                                         
+  
+                                      </div>
+                                  </div>
+  
+                                  <div class="form-group row">
+                                          <label  class="col-md-4 col-form-label text-md-right"> Zip Code</label>
+                                          <div class="col-md-6">
+                                              <input type="text" placeholder="Enter Zip Code"  mask="000-000" formControlName="pin" class="form-control" 
+                                              [class.is-invalid]="user.get('pin').invalid && user.get('pin').touched">
+                                          </div>
+                                      </div>
+  
+                                  <div class="form-group row">
+                                      <label for="nid_number" class="col-md-4 col-form-label text-md-right"> Address</label>
+                                      <div class="col-md-6">
+                                          <textarea type="" rows="3"  formControlName="address" id="nid_number" class="form-control" name="nid-number"></textarea>
+                                      </div>
+                                  </div>
+  
+                                  <div class="form-group row">
+                                      <label for="nid_number" class="col-md-4 col-form-label text-md-right"> Gender</label>
+                                      <div class="col-md-6">
+                                          <div class="row form-group">
+                                                  <label for="nid_number"  class="col-md-3 col-form-label  text-md-right"> Male</label>
+                                          
+                                                  <input type="radio" value="Male"  formControlName="gender" class="form-control col-sm-2" >
+  
+                                          <label  class="col-md-3 col-form-label text-md-right"> Female</label>
+                                          <input type="radio" value="Female" formControlName="gender"  class="form-control col-md-2">
+  
+  
+                                          </div>
+                                     
+                                          
+                                      </div>
+                                  </div>
+  
+                                  <div class="form-group row">
+                                    <label for="nid_number" class="col-md-4 col-form-label text-md-right"> Skills</label>
+                                    <div class="col-md-6">
+                                      <tag-input formControlName="skills"></tag-input>
+                                      <small style="color:red" *ngIf="user.get('skills').invalid && user.get('skills').touched" >Minimum 2 skills are Required</small>
+                                      
+                                    </div>
+                                </div>
+
+
+                                  
+
+  
+                                  <div class="form-group row">
+                                          <label for="nid_number" class="col-md-4 col-form-label text-md-right"> Hobbies</label>
+                                          <div class="col-md-7">
+                                              <div class="row">
+  
+                                                 
+                                                         
+                                                          <label for="my-input" class="col-md-3 col-form-label text-md-left" formArrayName="orders" *ngFor="let order of user.controls.orders.controls; let i = index" >
+                                                         <input class="form-control col-md-2" type="checkbox" (change)="onCheckBoxCheck(i)" [formControlName]="i">{{orders[i].name}}</label>
+                                                          <small style="margin-left:20px" *ngIf="hobbiesError" [class.text-danger]="hobbiesError" >Please select atleast two hobbies</small>
+                                                            
+                                                     
+  
+                                              
+                                              
+                                              
+                                         
+                                              
+                                          </div>
+                                      </div>
+      
+  
+                                      <div class="col-md-6 offset-md-4">
+                                              <button id="b1" [disabled]="!user.valid" (click)="onCreate()" class="btn btn-success " type="button">Create</button>
+                                              <button id="b1"   (click)="onPrevious()" class="btn btn-info " type="button">Back</button>
+                                              
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+              </div>
+          </div>
+      </div>
+  
+  </main>
+  
